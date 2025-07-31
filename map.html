@@ -447,7 +447,22 @@
                 }
             }
         }
-
+async function fetchSheetData() {
+  try {
+    const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRwGnCRGqtnVfBVM0W-_OUej4LROgQJ1CtdSOuW2H8Dtfcvg6EOfhi6ihQf_Df0MksBW_k_M38X2PFi/pub?gid=0&single=true&output=csv');
+    if (!response.ok) {
+      throw new Error('Fetch failed: ' + response.status);
+    }
+    const data = await response.text();
+    console.log(data); // Log to check raw CSV
+    // Parse CSV (e.g., split by lines/commas or use a library like PapaParse)
+    const rows = data.split('\n').map(row => row.split(','));
+    // Display data points, e.g., update DOM elements
+    document.getElementById('data-container').innerText = JSON.stringify(rows);
+  } catch (error) {
+    console.error('Error fetching Sheet:', error);
+  }
+}
         // Parse CSV and initialize map markers
         Papa.parse('https://docs.google.com/spreadsheets/d/e/2PACX-1vRwGnCRGqtnVfBVM0W-_OUej4LROgQJ1CtdSOuW2H8Dtfcvg6EOfhi6ihQf_Df0MksBW_k_M38X2PFi/pub?gid=0&single=true&output=csv', {
             download: true,
