@@ -300,9 +300,6 @@
 
         // Take screenshots for each market
         async function takeMarketScreenshots() {
-            document.getElementById('loading-indicator').style.display = 'block';
-            document.getElementById('loading-indicator').textContent = 'Preparing screenshots...';
-
             const markets = [...new Set(properties.map(p => p.market).filter(m => m !== 'N/A' && m !== ''))];
             const currentZoom = map.getZoom();
             const currentCenter = map.getCenter();
@@ -372,7 +369,7 @@
                 keyDiv.style.maxWidth = '300px';
                 keyDiv.style.overflow = 'auto';
 
-                let keyHtml = `<h3 style="font-size: 16px; margin: 0 0 5px 0;">${market} Market Key</h3><table class="key-table"><tr><th>Number</th><th>Property Name</th><th>Acreage</th></tr>`;
+                let keyHtml = `<h3 style="font-size: 16px; margin: 0 0 5px 0;">${market} Market Key</h3><table class="key-table"><tr><th>Number</th><th>Address</th><th>Acreage</th></tr>`;
                 marketProperties.forEach(prop => {
                     const index = properties.indexOf(prop);
                     const num = index + 1;
